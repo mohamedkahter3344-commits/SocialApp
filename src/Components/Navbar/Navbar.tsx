@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { tokenContext } from "../../Context/TokenContext/TokenContext";
 
 const Navbar = () => {
-  const { userToken, isAuthnticated,logOutContext } = useContext(tokenContext);
+  const { userToken, isAuthnticated,logOutContext }: any = useContext(tokenContext);
   const navigate = useNavigate()
   function logOut() {
     logOutContext();

@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 
 const CreateComment = ({ id }: { id: string }) => {
   const [image, setImage] = useState<string | null>(null);
-  const [img, setImg] = useState(null);
+  const [img, setImg] = useState<File | null>(null);
 
   const commentContent = useRef<HTMLInputElement>(null);
   const commentImage = useRef<HTMLInputElement>(null);
@@ -21,7 +21,7 @@ const CreateComment = ({ id }: { id: string }) => {
         queryKey: ["postComments", id],
       });
       queryClient.invalidateQueries({
-        queryKey:["posts"],
+        queryKey: ["posts"],
       });
       removeImage(new MouseEvent("click") as any);
       commentContent.current!.value = "";
@@ -39,7 +39,7 @@ const CreateComment = ({ id }: { id: string }) => {
     const formData = new FormData();
 
     if (commentContent.current?.value.trim() !== "") {
-      formData.append("content", commentContent.current?.value);
+      formData.append("content", commentContent.current?.value ?? "");
     }
     if (img !== null) {
       formData.append("image", img);
@@ -85,7 +85,7 @@ const CreateComment = ({ id }: { id: string }) => {
 
   function handleImageChange() {
     const file = commentImage.current?.files?.[0];
-
+    if (!file) return;
     const url = URL.createObjectURL(file);
     setImage(url);
     setImg(file);
@@ -167,7 +167,7 @@ const CreateComment = ({ id }: { id: string }) => {
 
         <Button
           type="button"
-          onClick={mutate}
+          onClick={()=>mutate()}
           className="flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-xl bg-blue-600 text-lg text-white transition-all duration-200 hover:bg-blue-700 hover:shadow-md active:scale-95"
           isPending={isPending}
         >

@@ -5,6 +5,7 @@ import Posts from "../Posts/Posts";
 // import type { PostsType } from "../../interface/PostInterface";
 import { useQuery } from "@tanstack/react-query";
 import CreatePost from "../CreatePost/CreatePost";
+import { Post} from "../../interface/PostInterface";
 
 const Home = () => {
   // const [posts, setPosts] = useState<PostsType | null>(null);
@@ -39,7 +40,7 @@ const Home = () => {
     });
   }
 
-  const { data, isError, isFetching, isLoading } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["posts"],
     queryFn: getAllPosts,
     // refetchOnMount: false,
@@ -82,7 +83,7 @@ const Home = () => {
           </div>
         ) : (
           <div className="space-y-5">
-            {data?.data?.data.posts.map((post) => (
+            {data?.data?.data.posts.map((post: Post ) => (
               <Posts key={post._id} post={post} />
             ))}
           </div>

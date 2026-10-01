@@ -74,6 +74,7 @@ export interface TopComment2 {
   parentComment: any
   likes: string[]
   createdAt: string
+  image?: string;
 }
 
 export interface CommentCreator2 {

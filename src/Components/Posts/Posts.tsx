@@ -118,30 +118,30 @@ const Posts = ({ post }: { post: Post }) => {
           <div className="flex items-center gap-3">
             <img
               src={
-                post.topComment.commentCreator.photo ||
+                post.topComment?.commentCreator.photo ||
                 "https://ui-avatars.com/api/?name=User"
               }
-              alt={post.topComment.commentCreator.name || "User"}
+              alt={post.topComment?.commentCreator.name || "User"}
               className="h-11 w-11 rounded-full object-cover"
             />
             <div>
               <h3 className="font-semibold text-gray-900">
-                {post.topComment.commentCreator.name || "Unknown User"}
+                {post.topComment?.commentCreator.name || "Unknown User"}
               </h3>
               <p className="text-xs text-gray-500">
                 {post.topComment.createdAt
-                  ? new Date(post.topComment.createdAt).toLocaleString()
+                  ? new Date(post.topComment?.createdAt).toLocaleString()
                   : "Just now"}
               </p>
               <div>
                 {
-                  post.topComment.content && <p>{post.topComment.content}</p>
+                  post.topComment?.content && <p>{post.topComment.content}</p>
                 }
                 
                 {
-                  post.topComment.image && (
+                  post.topComment?.image && (
                     <img
-                      src={post.topComment.image || "https://ui-avatars.com/api/?name=User"}
+                      src={post.topComment?.image || "https://ui-avatars.com/api/?name=User"}
                       alt="Comment"
                       className="w-33 mt-2 rounded-lg object-cover"
                     />

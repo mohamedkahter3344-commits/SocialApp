@@ -13,7 +13,7 @@ import { tokenContext } from "../../Context/TokenContext/TokenContext";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { saveUserToken } = useContext(tokenContext);
+  const { saveUserToken }: any = useContext(tokenContext);
   const {
     handleSubmit,
     register,

@@ -1,6 +1,11 @@
 import { createContext, useEffect, useState, type ReactNode } from "react";
 
-export const tokenContext = createContext();
+export const tokenContext = createContext<{
+  userToken: string | null;
+  isAuthnticated: boolean;
+  saveUserToken: (token: string) => void;
+  logOutContext: () => void;
+} | null>(null);
 
 const TokenContextProvider = ({ children }: { children: ReactNode }) => {
   const [userToken, setUserToken] = useState<string | null>(null);

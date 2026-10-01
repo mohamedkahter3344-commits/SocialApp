@@ -9,7 +9,7 @@ const CreatePost = () => {
   const postImage = useRef<HTMLInputElement>(null);
 
   const [image, setImage] = useState<string | null>(null);
-  const [img, setImg] = useState(null);
+  const [img, setImg] = useState<File | null>(null);
 
   const queryClient = useQueryClient();
 
@@ -38,9 +38,9 @@ const CreatePost = () => {
     const formData = new FormData();
 
     if (postBody.current?.value.trim() !== "") {
-      formData.append("body", postBody.current?.value);
+      formData.append("body", postBody.current?.value ?? "");
     }
-    if (image !== null) {
+    if (img !== null) {
       formData.append("image", img);
     }
 
@@ -54,7 +54,7 @@ const CreatePost = () => {
 
   function handleImageChange() {
     const file = postImage.current?.files?.[0];
-
+    if (!file) return;
     const url = URL.createObjectURL(file);
     setImage(url);
     setImg(file);
@@ -115,7 +115,11 @@ const CreatePost = () => {
       {/* Actions */}
       <Button
         type="button"
-        onClick={mutate}
+        onClick={() => {
+          if (postBody.current?.value.trim() || img) {
+            mutate({} as React.FormEvent<HTMLFormElement>);
+          }
+        }}
         className="flex h-11 my-3 w-full shrink-0 cursor-pointer items-center justify-center rounded-xl bg-blue-600 text-lg text-white transition-all duration-200 hover:bg-blue-700 hover:shadow-md active:scale-95"
         isPending={isPending}
       >

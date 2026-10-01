@@ -17,7 +17,7 @@ const PostDetails = () => {
   }
 
 
-  const { data, isError, isFetching, isLoading } = useQuery({
+  const { data, isError, isLoading } = useQuery({
     queryKey: ["post", id],
     queryFn: getPostDetails,
   });
