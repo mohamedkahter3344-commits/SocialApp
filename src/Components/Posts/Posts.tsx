@@ -3,9 +3,15 @@ import { Link, useLocation } from "react-router-dom";
 import type { Post } from "../../interface/PostInterface";
 import PostComments from "../PostComments/PostComments";
 import CreateComment from "../CreateComment/CreateComment";
+import DeletePost from "../DeletePost/DeletePost";
+import { jwtDecode } from "jwt-decode";
 
 const Posts = ({ post }: { post: Post }) => {
   const { pathname } = useLocation();
+
+  const { user } = jwtDecode(localStorage.getItem("token") || "") as {
+    user: string;
+  };
 
   return (
     <article className="overflow-hidden rounded-xl bg-white shadow-sm">
@@ -28,31 +34,7 @@ const Posts = ({ post }: { post: Post }) => {
             </p>
           </div>
         </div>
-        <Dropdown>
-          <Button aria-label="Menu" variant="secondary">
-            Actions
-          </Button>
-          <Dropdown.Popover>
-            <Dropdown.Menu onAction={(key) => console.log(`Selected: ${key}`)}>
-              <Dropdown.Item id="new-file" textValue="New file">
-                <Label>New file</Label>
-              </Dropdown.Item>
-              <Dropdown.Item id="copy-link" textValue="Copy link">
-                <Label>Copy link</Label>
-              </Dropdown.Item>
-              <Dropdown.Item id="edit-file" textValue="Edit file">
-                <Label>Edit file</Label>
-              </Dropdown.Item>
-              <Dropdown.Item
-                id="delete-file"
-                textValue="Delete file"
-                variant="danger"
-              >
-                <Label>Delete file</Label>
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown.Popover>
-        </Dropdown>
+        <div>{post.user?._id === user && <DeletePost id={post.id} />}</div>
       </div>
       {/* <p>{post._id}</p> */}
       {/* Post Content */}
@@ -111,7 +93,7 @@ const Posts = ({ post }: { post: Post }) => {
         </div>
       </div>
       {/* Comment Input */}
-      <CreateComment id = {post.id}/>
+      <CreateComment id={post.id} />
       {/* Comments User */}
       {post.topComment && pathname === "/" && (
         <div className="flex items-center gap-3 justify-between p-2 bg-slate-200">
@@ -134,19 +116,18 @@ const Posts = ({ post }: { post: Post }) => {
                   : "Just now"}
               </p>
               <div>
-                {
-                  post.topComment?.content && <p>{post.topComment.content}</p>
-                }
-                
-                {
-                  post.topComment?.image && (
-                    <img
-                      src={post.topComment?.image || "https://ui-avatars.com/api/?name=User"}
-                      alt="Comment"
-                      className="w-33 mt-2 rounded-lg object-cover"
-                    />
-                  )
-                }
+                {post.topComment?.content && <p>{post.topComment.content}</p>}
+
+                {post.topComment?.image && (
+                  <img
+                    src={
+                      post.topComment?.image ||
+                      "https://ui-avatars.com/api/?name=User"
+                    }
+                    alt="Comment"
+                    className="w-33 mt-2 rounded-lg object-cover"
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -181,11 +162,9 @@ const Posts = ({ post }: { post: Post }) => {
         </div>
       )}
 
-      {
-        post.commentsCount > 0 && pathname !== "/" && (
-          <PostComments id = {post.id} />
-        )
-      }
+      {post.commentsCount > 0 && pathname !== "/" && (
+        <PostComments id={post.id} />
+      )}
     </article>
   );
 };

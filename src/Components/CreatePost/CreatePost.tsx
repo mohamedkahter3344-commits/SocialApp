@@ -19,6 +19,9 @@ const CreatePost = () => {
     onSuccess: (data) => {
       toast.success(data.data.message);
       queryClient.invalidateQueries({ queryKey: ["posts"] });
+      queryClient.invalidateQueries({ queryKey: ["userPosts"] });
+
+      // Profile
       removeImage(new MouseEvent("click") as any);
       postBody.current!.value = "";
     },
@@ -33,7 +36,6 @@ const CreatePost = () => {
   });
 
   function handlePostSubmit() {
-
     const formData = new FormData();
 
     if (postBody.current?.value.trim() !== "") {
