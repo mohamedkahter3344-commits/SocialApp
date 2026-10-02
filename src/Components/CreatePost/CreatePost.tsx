@@ -114,11 +114,7 @@ const CreatePost = () => {
       {/* Actions */}
       <Button
         type="button"
-        onClick={() => {
-          if (postBody.current?.value.trim() || img) {
-            mutate({} as React.FormEvent<HTMLFormElement>);
-          }
-        }}
+        onClick={() => mutate()}
         className="flex h-11 my-3 w-full shrink-0 cursor-pointer items-center justify-center rounded-xl bg-blue-600 text-lg text-white transition-all duration-200 hover:bg-blue-700 hover:shadow-md active:scale-95"
         isPending={isPending}
       >
