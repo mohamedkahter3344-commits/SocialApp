@@ -103,27 +103,23 @@ const CreateComment = ({ id }: { id: string }) => {
   }
 
   return (
-    <div className="flex gap-3 px-4 pb-4">
+    <div className="flex gap-2 px-3 pb-4 sm:gap-3 sm:px-4">
       {/* User Avatar */}
-      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-blue-600 text-sm font-bold text-white">
+      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-blue-600 text-sm font-bold text-white sm:h-10 sm:w-10">
         M
       </div>
-
       {/* Inputs */}
-      <div className="flex flex-1 items-center gap-2">
+      <div className="flex min-w-0 flex-1 items-center gap-1.5 sm:gap-2">
         {/* Text Input */}
         <input
           ref={commentContent}
           type="text"
           placeholder="Write a comment..."
-          className="h-11 flex-1 rounded-xl border border-gray-200 bg-gray-100 px-4 text-sm outline-none transition-all duration-200 focus:border-blue-400 focus:bg-white focus:ring-2 focus:ring-blue-100"
+          className="h-10 min-w-0 flex-1 rounded-xl border border-gray-200 bg-gray-100 px-3 text-xs outline-none transition-all duration-200 focus:border-blue-400 focus:bg-white focus:ring-2 focus:ring-blue-100 sm:h-11 sm:px-4 sm:text-sm"
         />
-
         {/* File Input */}
         <label
-          className={`group relative flex h-11 shrink-0 cursor-pointer items-center justify-center overflow-visible rounded-xl border border-dashed border-gray-300 bg-gray-50 transition-all duration-200 hover:border-blue-400 hover:bg-blue-50 ${
-            image ? "w-16 border-solid" : "w-28"
-          }`}
+          className={`group relative flex h-10 shrink-0 cursor-pointer items-center justify-center overflow-visible rounded-xl border border-dashed border-gray-300 bg-gray-50 transition-all duration-200 hover:border-blue-400 hover:bg-blue-50 sm:h-11 ${image ? "w-12 border-solid sm:w-16" : "w-10 sm:w-28"}`}
         >
           {image ? (
             <>
@@ -133,7 +129,6 @@ const CreateComment = ({ id }: { id: string }) => {
                 alt="Selected"
                 className="h-full w-full rounded-xl object-cover"
               />
-
               {/* X Button */}
               <button
                 type="button"
@@ -148,13 +143,11 @@ const CreateComment = ({ id }: { id: string }) => {
               <span className="text-lg transition-transform duration-200 group-hover:scale-110">
                 📷
               </span>
-
-              <span className="ml-2 text-xs font-semibold text-gray-500 group-hover:text-blue-600">
+              <span className="ml-2 hidden text-xs font-semibold text-gray-500 group-hover:text-blue-600 sm:inline">
                 Add image
               </span>
             </>
           )}
-
           {/* File Input */}
           <input
             ref={commentImage}
@@ -164,13 +157,11 @@ const CreateComment = ({ id }: { id: string }) => {
             accept="image/*"
           />
         </label>
-
         {/* Submit Button */}
-
         <Button
           type="button"
           onClick={() => mutate()}
-          className="flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-xl bg-blue-600 text-lg text-white transition-all duration-200 hover:bg-blue-700 hover:shadow-md active:scale-95"
+          className="flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-xl bg-blue-600 text-base text-white transition-all duration-200 hover:bg-blue-700 hover:shadow-md active:scale-95 sm:h-11 sm:w-11 sm:text-lg"
           isPending={isPending}
         >
           {({ isPending }) => (
