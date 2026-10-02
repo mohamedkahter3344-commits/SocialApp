@@ -32,8 +32,7 @@ const CreatePost = () => {
     },
   });
 
-  function handlePostSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  function handlePostSubmit() {
 
     const formData = new FormData();
 
